@@ -138,8 +138,8 @@ function showHideNavitagionLinks () {
     } else {
            
     $("#viewHome").show();
-    $("#viewMenu").hide();
-    $("#viewPhones").hide();
+    $("#viewMenu").show();
+    $("#viewPhones").show();
         
     }
 }
