@@ -8,28 +8,16 @@ function showView(viewId){
     $("main > section").hide();
     
     $("#" + viewId).show();
-    
-}
-
-function showHomeView(){
-    
-    showView('viewHome');
-    
 }
 
 
-
-function showLoginView(){
-    showView('viewLogin');
-    
-}
 function login(){
     
     let authBase64 = btoa(kinveyAppID + ":" + kinveyAppSecret);
     let loginUrl = kinveyServiceBaseUrl + "user/" + kinveyAppID + "/login";
     let loginData = {
-        username: $("#loginUser").val(),
-        password: $("#loginPass").val(),
+        username: $("#username").val(),
+        password: $("#password").val(),
         
         
     };
@@ -38,91 +26,34 @@ function login(){
         url: loginUrl,
         data: loginData,
         headers: { "Authorization": "Basic " + authBase64 },
-        success: loginSuccess,
-        error: showAjaxError
+     success: loginSuccess,
+		error: showAjaxError
     
         
         
     });
-    
-    function loginSuccess(data, status){
+
+
+
+function loginSuccess(data,status){
         sessionStorage.authToken = data._kmd.authtoken;
         
-        showHideNavitagionLinks();
-        showListBooksView();
         
-        showInfo("Login Successful");
+        showInfo("Влязохте успешно!");
+        
+       showHideNavitagionLinks();
+		
+		
         
     }
-    }
-    
-    
+}
+
+
+	
 function showInfo(messageText){
-    
-    $("#infoBox").text(messageText).show().delay(3000).fadeOut();
+	
+	$("#infoBox").text(messageText).show().delay(3000).fadeOut();
 }
-
-function showRegisterView(){
-    showView('viewRegister');
-    
-}
-function register(){
-    
-    
-}
-
-function showListBooksView(){
-    
-
-    showView('viewList');
-    
-    let booksUrl = kinveyServiceBaseUrl + "appdata/" + kinveyAppID + "/Books";
-    let authHeaders = {'Authorization': "Kinvey " + sessionStorage.getItem('authToken'),};
-   
-    
-        
-        
-    
-    $.ajax ({
-        method: "GET",
-        url: booksUrl,
-        headers: authHeaders,
-        success: booksLoaded,
-        error: showAjaxError
-    
-        
-        
-    });
-    
-    function booksLoaded(data, status){
-        
-        
-        showInfo("BooksLoaded");
-        alert(JSON.stringify(data));
-}
-}
-
-function showCreateBooksView(){
-    showView('viewCreate');
-    
-}
-function createBook(){
-    
-    
-}
-
-function showLogoutView(){
-    
-    sessionStorage.clear();
-    showHomeView();
-    showHideNavitagionLinks();
-    
-    logoutInfo("bye bitch");
-    
-}
- function logoutInfo(messageText){
-     $("#infoBox").text(messageText).show().delay(1300).fadeOut();
- }
 
 function showHideNavitagionLinks () {
     
@@ -131,43 +62,44 @@ function showHideNavitagionLinks () {
     if(loggedIn) {
         
     $("#viewHome").hide();
-    $("#viewMenu").show();
     $("#viewPhones").show();
-            
+    $("#viewMenu").show();
+    
+        
         
     } else {
-           
+          
     $("#viewHome").show();
-    $("#viewMenu").show();
-    $("#viewPhones").show();
+    $("#viewPhones").hide();
+    $("#viewMenu").hide();
         
     }
+}
+
+
+
+function showLogoutView(){
+	
+	sessionStorage.clear();
+	
+	showHideNavitagionLinks();
+	
+	
 }
 $(function(){
     
     
+    
     $("#loginButton").click(login);
-   
     
     
-    showHomeView()
+   $("#linkLogout").click(showLogoutView);
+    
     showHideNavitagionLinks()
 }) 
 
-//--------------------------------------------------------------------------------//
-
-
-
-
-    
-
-
-
-
-
-
 function showAjaxError (data,status){
-    let errorMsg = "Error: " + JSON.stringify(data);
-    $('#errorBox').text(errorMsg).show();
-    
+	let errorMsg = "Моля Въведете правилни данни!";
+	$('#errorBox').text(errorMsg).show().delay(3000).fadeOut();
+	
 }
