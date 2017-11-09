@@ -5,7 +5,7 @@ const kinveyServiceBaseUrl = 'https://baas.kinvey.com/';
 
 
 function showView(viewId){
-    $("main > section").hide();
+   
     
     $("#" + viewId).show();
 }
@@ -13,7 +13,7 @@ function showView(viewId){
 function showDelegateView(){
 
     showView('viewDelegate');
-
+$("#viewMenu").show();
     $("#viewPhones").hide();
     $("#text").text ("Делегати");
 
@@ -24,7 +24,7 @@ function showDelegateView(){
 function showRefereeView(){
 
     showView('viewPhones')
-   
+   $("#viewMenu").show();
     $("#viewDelegate").hide();
 	 $("#viewThirdLeague").hide();
 	$("#viewCommision").hide();
@@ -35,7 +35,7 @@ function showCommisionView(){
 	$("#viewPhones").hide();
     $("#viewDelegate").hide();
 	 $("#viewThirdLeague").hide();
-	
+	$("#viewMenu").show();
     $("#text").text ("Комисия");
 	
 }
@@ -46,7 +46,7 @@ function showThirdLeagueView(){
     $("#viewDelegate").hide();
 	$("#viewCommision").hide();
 	$("#text").text ("Трета Лига");
-	
+	$("#viewMenu").show();
     
 	
 }
