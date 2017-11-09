@@ -10,7 +10,42 @@ function showView(viewId){
     $("#" + viewId).show();
 }
 
+function showDelegateView(){
 
+    showView('viewDelegate');
+
+    $("#viewPhones").hide();
+    $("#text").text ("Делегати");
+
+
+
+}
+
+function showRefereeView(){
+
+    showView('viewPhones')
+   
+    $("#viewDelegate").hide();
+    $("#text").text ("Съдий");
+}
+function showCommisionView(){
+	showView('viewCommision')
+	$("#viewPhones").hide();
+    $("#viewDelegate").hide();
+    $("#text").text ("Комисия");
+	
+}
+
+function showThirdLeagueView(){
+	showView('viewThirdLeague')
+	$("#viewPhones").hide();
+    $("#viewDelegate").hide();
+	$("#viewCommision").hide();
+	$("#text").text ("Трета Лига");
+	
+    
+	
+}
 function login(){
     
     let authBase64 = btoa(kinveyAppID + ":" + kinveyAppSecret);
@@ -64,6 +99,11 @@ function showHideNavitagionLinks () {
     $("#viewHome").hide();
     $("#viewPhones").show();
     $("#viewMenu").show();
+    $("#viewDelegate").show();
+	$("#viewCommision").show();
+	$("#viewThirdLeague").show();
+    $("footer").show();
+    showRefereeView();
     
         
         
@@ -72,6 +112,10 @@ function showHideNavitagionLinks () {
     $("#viewHome").show();
     $("#viewPhones").hide();
     $("#viewMenu").hide();
+    $("#viewDelegate").hide();
+	$("#viewCommision").hide();
+	$("#viewThirdLeague").hide();
+    $("footer").hide();
         
     }
 }
@@ -93,7 +137,22 @@ $(function(){
     $("#loginButton").click(login);
     
     
-   $("#linkLogout").click(showLogoutView);
+    
+   $("#linkLogout").click( showLogoutView);
+
+   
+
+
+
+    $("#linkReferee").click(showRefereeView);
+	  $("#linkCommision").click(showCommisionView);
+	
+   
+         $("#linkDelegate").click(showDelegateView);
+		 $("#linkThirdLeague").click(showThirdLeagueView);
+         
+
+
     
     showHideNavitagionLinks()
 }) 
