@@ -26,12 +26,16 @@ function showRefereeView(){
     showView('viewPhones')
    
     $("#viewDelegate").hide();
+	 $("#viewThirdLeague").hide();
+	$("#viewCommision").hide();
     $("#text").text ("Съдий");
 }
 function showCommisionView(){
 	showView('viewCommision')
 	$("#viewPhones").hide();
     $("#viewDelegate").hide();
+	 $("#viewThirdLeague").hide();
+	
     $("#text").text ("Комисия");
 	
 }
