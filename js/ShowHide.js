@@ -111,7 +111,7 @@ function showHideNavitagionLinks () {
     $("#viewDelegate").hide();
 	$("#viewCommision").hide();
 
-    $("footer").hide();
+   $("footer").show();
         
     }
 }
