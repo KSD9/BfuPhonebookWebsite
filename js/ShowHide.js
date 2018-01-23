@@ -4,157 +4,146 @@ const kinveyAppSecret = '621af0adf1d240b6a321f78fb36285a2';
 const kinveyServiceBaseUrl = 'https://baas.kinvey.com/';
 
 
-function showView(viewId){
+function showView(viewId) {
     $("main > section").hide();
-    
+
     $("#" + viewId).show();
 }
 
-function showDelegateView(){
+function showDelegateView() {
 
     showView('viewDelegate');
 
     $("#viewPhones").hide();
-    $("#text").text ("Делегати");
+    $("#text").text("Делегати");
 
 
 
 }
 
-function showRefereeView(){
+function showRefereeView() {
 
     showView('viewPhones')
-   
-    $("#viewDelegate").hide();
-	$("#viewCommision").hide();
-    $("#text").text ("Съдий");
-}
-function showCommisionView(){
-	showView('viewCommision')
-	$("#viewPhones").hide();
+
     $("#viewDelegate").hide();
 
-	
-    $("#text").text ("Комисия");
-	
+    $("#text").text("Съдий");
 }
 
-    
-	
 
-function login(){
-    
+
+
+
+function login() {
+
     let authBase64 = btoa(kinveyAppID + ":" + kinveyAppSecret);
     let loginUrl = kinveyServiceBaseUrl + "user/" + kinveyAppID + "/login";
     let loginData = {
         username: $("#username").val(),
         password: $("#password").val(),
-        
-        
+
+
     };
-    $.ajax ({
+    $.ajax({
         method: "POST",
         url: loginUrl,
         data: loginData,
         headers: { "Authorization": "Basic " + authBase64 },
-     success: loginSuccess,
-		error: showAjaxError
-    
-        
-        
+        success: loginSuccess,
+        error: showAjaxError
+
+
+
     });
 
 
 
-function loginSuccess(data,status){
+    function loginSuccess(data, status) {
         sessionStorage.authToken = data._kmd.authtoken;
-        
-        
+
+
         showInfo("Влязохте успешно!");
-        
-       showHideNavitagionLinks();
-		
-		
-        
+
+        showHideNavitagionLinks();
+
+
+
     }
 }
 
 
-	
-function showInfo(messageText){
-	
-	$("#infoBox").text(messageText).show().delay(3000).fadeOut();
+
+function showInfo(messageText) {
+
+    $("#infoBox").text(messageText).show().delay(3000).fadeOut();
 }
 
-function showHideNavitagionLinks () {
-    
+function showHideNavitagionLinks() {
+
     let loggedIn = sessionStorage.authToken != null;
-    
-    if(loggedIn) {
-        
-    $("#viewHome").hide();
-    $("#viewPhones").show();
-    $("#viewMenu").show();
-    $("#viewDelegate").show();
-	$("#viewCommision").show();
 
-    $("footer").show();
-    showRefereeView();
-    
-        
-        
+    if (loggedIn) {
+
+        $("#viewHome").hide();
+        $("#viewPhones").show();
+        $("#viewMenu").show();
+        $("#viewDelegate").show();
+
+        $("footer").show();
+        showRefereeView();
+
+
+
     } else {
-          
-    $("#viewHome").show();
-    $("#viewPhones").hide();
-    $("#viewMenu").hide();
-    $("#viewDelegate").hide();
-	$("#viewCommision").hide();
 
-   $("footer").show();
-        
+        $("#viewHome").show();
+        $("#viewPhones").hide();
+        $("#viewMenu").hide();
+        $("#viewDelegate").hide();
+
+        $("footer").show();
+
     }
 }
 
 
 
-function showLogoutView(){
-	
-	sessionStorage.clear();
-	
-	showHideNavitagionLinks();
-	
-	
-}
-$(function(){
-    
-    
-    
-    $("#loginButton").click(login);
-    
-    
-    
-   $("#linkLogout").click( showLogoutView);
+function showLogoutView() {
 
-   
+    sessionStorage.clear();
+
+    showHideNavitagionLinks();
+
+
+}
+$(function () {
+
+
+
+    $("#loginButton").click(login);
+
+
+
+    $("#linkLogout").click(showLogoutView);
+
+
 
 
 
     $("#linkReferee").click(showRefereeView);
-	  $("#linkCommision").click(showCommisionView);
-	
-   
-         $("#linkDelegate").click(showDelegateView);
-		
-         
 
 
-    
+    $("#linkDelegate").click(showDelegateView);
+
+
+
+
+
     showHideNavitagionLinks()
-}) 
+})
 
-function showAjaxError (data,status){
-	let errorMsg = "Моля Въведете правилни данни!";
-	$('#errorBox').text(errorMsg).show().delay(3000).fadeOut();
-	
+function showAjaxError(data, status) {
+    let errorMsg = "Моля Въведете правилни данни!";
+    $('#errorBox').text(errorMsg).show().delay(3000).fadeOut();
+
 }
