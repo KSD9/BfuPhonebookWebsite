@@ -1,8 +1,8 @@
 <?php
 $xmlDoc=new DOMDocument();
-$xmlDoc->load("links.xml");
+$xmlDoc->load("index.html");
 
-$x=$xmlDoc->getElementsByTagName('link');
+$x=$xmlDoc->getElementsByClassName('fh5co-name');
 
 //get the q parameter from URL
 $q=$_GET["q"];
@@ -11,8 +11,8 @@ $q=$_GET["q"];
 if (strlen($q)>0) {
   $hint="";
   for($i=0; $i<($x->length); $i++) {
-    $y=$x->item($i)->getElementsByTagName('title');
-    $z=$x->item($i)->getElementsByTagName('url');
+    $y=$x->item($i)->getElementsByClassName('fh5co-meta');
+    $z=$x->item($i)->getElementsByClassName('fh5co-text');
     if ($y->item(0)->nodeType==1) {
       //find a link matching the search text
       if (stristr($y->item(0)->childNodes->item(0)->nodeValue,$q)) {
